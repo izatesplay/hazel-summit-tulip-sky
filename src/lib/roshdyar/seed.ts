@@ -1,0 +1,171 @@
+import { atTehran } from "./format";
+import type { Data } from "./types";
+import { DEFAULT_TERMS } from "./types";
+
+const TERMS = DEFAULT_TERMS;
+
+export function createSeed(): Data {
+  const day = (offset: number, hour = 10) => atTehran(offset, hour);
+
+  return {
+    org: {
+      name: "آوان راهبرد",
+      legalName: "شرکت آوان راهبرد مشاوره",
+      phone: "02191004040",
+      email: "hello@avanrahbord.example",
+      address: "تهران، خیابان کریمخان زند، پلاک ۴۸",
+      timezone: "Asia/Tehran",
+      quotePrefix: "AVN",
+      taxPercent: 10,
+      followUpDays: 2,
+      staleDays: 7,
+      discountCaps: { owner: 100, manager: 20, sales: 10, finance: 0, viewer: 0 },
+    },
+    members: [
+      { id: "m_sara", name: "سارا کیانی", email: "sara@avanrahbord.example", role: "owner", title: "بنیان‌گذار", active: true },
+      { id: "m_reza", name: "رضا نوری", email: "reza@avanrahbord.example", role: "manager", title: "مدیر فروش", active: true },
+      { id: "m_maryam", name: "مریم احمدی", email: "maryam@avanrahbord.example", role: "sales", title: "کارشناس فروش", active: true },
+      { id: "m_kaveh", name: "کاوه شریفی", email: "kaveh@avanrahbord.example", role: "finance", title: "مسئول مالی", active: true },
+      { id: "m_niloofar", name: "نیلوفر راد", email: "niloofar@avanrahbord.example", role: "viewer", title: "ناظر هیئت‌مدیره", active: true },
+    ],
+    meId: "m_sara",
+    customers: [
+      { id: "cus_novin", kind: "company", name: "هلدینگ پارس‌نوین", phone: "02191090011", email: "dev@parsnovin.example", source: "معرفی", ownerId: "m_maryam", status: "QUALIFIED", priority: "high", tags: ["هلدینگ", "اولویت"], notes: "به دنبال بازطراحی فرایند فروش سه شرکت تابعه.", createdAt: day(-40), lastActivityAt: day(-2) },
+      { id: "cus_aria", kind: "company", name: "بیمارستان آریاطب", phone: "02188001122", email: "office@ariatab.example", source: "وب‌سایت", ownerId: "m_maryam", status: "CONTACTED", priority: "normal", tags: ["درمان"], notes: "پیشنهاد همراهی سه‌ماهه را دیده‌اند و هنوز پاسخ نداده‌اند.", createdAt: day(-18), lastActivityAt: day(-1) },
+      { id: "cus_sepehr", kind: "company", name: "حمل‌ونقل سپهر", phone: "02144002233", email: "sales@sepehrtrans.example", source: "نمایشگاه", ownerId: "m_reza", status: "NEW", priority: "normal", tags: ["نمایشگاه"], notes: "کارت ویزیت از غرفه لجستیک.", createdAt: day(-1), lastActivityAt: day(-1) },
+      { id: "cus_maharat", kind: "company", name: "آموزشگاه مهارت‌کده", phone: "02122223344", email: "hello@maharatkade.example", source: "معرفی", ownerId: "m_maryam", status: "ACTIVE", priority: "normal", tags: ["مشتری فعال"], notes: "فروش موفق. تمدید کارگاه در فصل بعد محتمل است.", createdAt: day(-60), lastActivityAt: day(-6) },
+      { id: "cus_noor", kind: "company", name: "استودیو نور", phone: "02177665544", email: "studio@noor.example", source: "اینستاگرام", ownerId: "m_maryam", status: "INACTIVE", priority: "low", tags: ["باخت"], notes: "به‌خاطر قیمت، پیشنهاد را رد کردند.", createdAt: day(-30), lastActivityAt: day(-15) },
+      { id: "cus_kimia", kind: "company", name: "گروه صنعتی کیمیا", phone: "02166007788", email: "bd@kimia.example", source: "کمپین", ownerId: "m_reza", status: "QUALIFIED", priority: "high", tags: ["راکد"], notes: "منتظر تصویب بودجه سالانه هستند. دوازده روز است تماسی ثبت نشده.", createdAt: day(-25), lastActivityAt: day(-12) },
+      { id: "cus_dan", kind: "person", name: "کافه دان", phone: "09125550101", email: "dan@cafedan.example", source: "اینستاگرام", ownerId: "m_sara", status: "NEW", priority: "normal", tags: ["خرده‌فروشی"], notes: "علاقه‌مند به کارگاه تیم سالن.", createdAt: day(-3), lastActivityAt: day(-3) },
+      { id: "cus_dan2", kind: "person", name: "دنیز کاظمی", phone: "09125550101", email: "daniz@cafedan.example", source: "معرفی", ownerId: "m_sara", status: "NEW", priority: "low", tags: ["احتمال تکرار"], notes: "شماره با پرونده کافه دان یکی است. قبل از ادغام، شخص را تأیید کنید.", createdAt: day(-1, 11), lastActivityAt: day(-1, 11) },
+      { id: "cus_vista", kind: "company", name: "نرم‌افزار ویستا", phone: "02143009876", email: "ops@vista.example", source: "تماس ورودی", ownerId: "m_maryam", status: "QUALIFIED", priority: "normal", tags: ["تخفیف"], notes: "تخفیف ۱۸ درصد درخواست شده و بالاتر از سقف کارشناس است.", createdAt: day(-8), lastActivityAt: day(0, 9) },
+      { id: "cus_rose", kind: "company", name: "کلینیک پوست رُز", phone: "02122334455", email: "clinic@rose.example", source: "وب‌سایت", ownerId: "m_maryam", status: "CONTACTED", priority: "normal", tags: [], notes: "پیشنهاد کارگاه منقضی شده. نیازسنجی تازه در جریان است.", createdAt: day(-20), lastActivityAt: day(-4) },
+      { id: "cus_sabz", kind: "company", name: "صنایع غذایی سبزینه", phone: "02155667700", email: "trade@sabzineh.example", source: "معرفی", ownerId: "m_reza", status: "CONTACTED", priority: "high", tags: ["غذایی"], notes: "پیشنهاد دیروز ارسال شده و هنوز دیده نشده.", createdAt: day(-9), lastActivityAt: day(-1, 16) },
+    ],
+    contacts: [
+      { id: "ct_novin", customerId: "cus_novin", name: "لیلا محمدی", roleTitle: "مدیر توسعه", phone: "09121001001", email: "leila@parsnovin.example" },
+      { id: "ct_aria", customerId: "cus_aria", name: "حسین راد", roleTitle: "مدیرعامل", phone: "09122002002", email: "rad@ariatab.example" },
+      { id: "ct_kimia", customerId: "cus_kimia", name: "بهرام صالحی", roleTitle: "مدیر فروش", phone: "09123003003", email: "bahram@kimia.example" },
+      { id: "ct_sabz", customerId: "cus_sabz", name: "هستی مراد", roleTitle: "مدیر بازرگانی", phone: "09124004004", email: "hasti@sabzineh.example" },
+      { id: "ct_dan", customerId: "cus_dan", name: "دنیز کاظمی", roleTitle: "مالک", phone: "09125550101", email: "daniz@cafedan.example" },
+    ],
+    services: [
+      { id: "svc_audit", name: "عارضه‌یابی فروش", category: "تشخیص", code: "SRV-01", unit: "پروژه", price: 85_000_000, description: "مرور قیف، نرخ تبدیل و گلوگاه‌های تیم فروش.", active: true },
+      { id: "svc_funnel", name: "طراحی قیف و فرایند", category: "طراحی", code: "SRV-02", unit: "پروژه", price: 140_000_000, description: "طراحی مراحل، معیار عبور و ریتم پیگیری.", active: true },
+      { id: "svc_retain", name: "همراهی اجرای سه‌ماهه", category: "اجرا", code: "SRV-03", unit: "دوره", price: 210_000_000, description: "حضور هفتگی کنار مدیر فروش تا تثبیت فرایند.", active: true },
+      { id: "svc_workshop", name: "کارگاه تیم فروش", category: "آموزش", code: "SRV-04", unit: "جلسه", price: 45_000_000, description: "کارگاه عملی نیم‌روزه برای کارشناسان.", active: true },
+      { id: "svc_cx", name: "ممیزی تجربه مشتری", category: "تشخیص", code: "SRV-05", unit: "پروژه", price: 95_000_000, description: "بررسی مسیر از اولین تماس تا تمدید خدمت.", active: true },
+      { id: "svc_old", name: "گزارش بازار ۱۴۰۳", category: "بایگانی", code: "SRV-00", unit: "نسخه", price: 20_000_000, description: "خدمت Retired. در پیشنهاد جدید انتخاب نمی‌شود.", active: false },
+    ],
+    opportunities: [
+      { id: "opp_novin", customerId: "cus_novin", title: "بازطراحی فروش هلدینگ", stage: "negotiation", amount: 420_000_000, probability: 60, assigneeId: "m_maryam", closeDate: day(20), stageEnteredAt: day(-2), createdAt: day(-20) },
+      { id: "opp_aria", customerId: "cus_aria", title: "همراهی سه‌ماهه آریاطب", stage: "sent", amount: 231_000_000, probability: 45, assigneeId: "m_maryam", closeDate: day(10), stageEnteredAt: day(-3), createdAt: day(-12) },
+      { id: "opp_sabz", customerId: "cus_sabz", title: "طراحی قیف سبزینه", stage: "sent", amount: 154_000_000, probability: 40, assigneeId: "m_reza", closeDate: day(14), stageEnteredAt: day(-1), createdAt: day(-7) },
+      { id: "opp_vista", customerId: "cus_vista", title: "ممیزی تجربه ویستا", stage: "ready", amount: 95_000_000, probability: 50, assigneeId: "m_maryam", closeDate: day(12), stageEnteredAt: day(-1), createdAt: day(-6) },
+      { id: "opp_sepehr", customerId: "cus_sepehr", title: "قیف فروش سپهر", stage: "new", amount: 140_000_000, probability: 20, assigneeId: "m_reza", closeDate: day(30), stageEnteredAt: day(-1), createdAt: day(-1) },
+      { id: "opp_kimia", customerId: "cus_kimia", title: "همراهی فروش کیمیا", stage: "discovery", amount: 310_000_000, probability: 35, assigneeId: "m_reza", closeDate: day(25), stageEnteredAt: day(-12), createdAt: day(-18) },
+      { id: "opp_rose", customerId: "cus_rose", title: "نیازسنجی کلینیک رُز", stage: "contacted", amount: 85_000_000, probability: 25, assigneeId: "m_maryam", closeDate: day(18), stageEnteredAt: day(-4), createdAt: day(-14) },
+      { id: "opp_dan", customerId: "cus_dan", title: "کارگاه تیم کافه دان", stage: "new", amount: 45_000_000, probability: 15, assigneeId: "m_sara", closeDate: day(21), stageEnteredAt: day(0, 9), createdAt: day(-3) },
+      { id: "opp_maharat", customerId: "cus_maharat", title: "بسته مهارت‌کده", stage: "won", amount: 180_000_000, probability: 100, assigneeId: "m_maryam", finalAmount: 180_000_000, wonAt: day(-20), stageEnteredAt: day(-20), createdAt: day(-40) },
+      { id: "opp_noor", customerId: "cus_noor", title: "قیف استودیو نور", stage: "lost", amount: 132_000_000, probability: 0, assigneeId: "m_maryam", lostReason: "قیمت", competitor: "مشاور داخلی", stageEnteredAt: day(-15), createdAt: day(-24) },
+    ],
+    stageMoves: [
+      { id: "sm1", opportunityId: "opp_novin", from: "sent", to: "negotiation", at: day(-2), byId: "m_maryam", note: "جلسه هیئت‌مدیره برگزار شد" },
+      { id: "sm2", opportunityId: "opp_aria", from: "ready", to: "sent", at: day(-3), byId: "m_maryam" },
+      { id: "sm3", opportunityId: "opp_kimia", from: "contacted", to: "discovery", at: day(-12), byId: "m_reza" },
+      { id: "sm4", opportunityId: "opp_maharat", from: "negotiation", to: "won", at: day(-20), byId: "m_maryam", note: "مبلغ نهایی ۱۸۰ میلیون تومان" },
+      { id: "sm5", opportunityId: "opp_noor", from: "sent", to: "lost", at: day(-15), byId: "m_maryam", note: "قیمت" },
+    ],
+    quotes: [
+      {
+        id: "q_aria", number: "AVN-1405-1004", customerId: "cus_aria", opportunityId: "opp_aria", status: "VIEWED",
+        items: [{ id: "qi_aria", serviceId: "svc_retain", title: "همراهی اجرای سه‌ماهه", qty: 1, unitPrice: 210_000_000, unit: "دوره" }],
+        discountPercent: 0, taxPercent: 10, terms: TERMS, notes: "شروع از نیمه آبان، یک جلسه حضوری در هفته.",
+        validUntil: day(4, 18), createdAt: day(-3), sentAt: day(-3, 11), viewedAt: day(-1, 15),
+        token: "a4e91c07b2d84f6e91aa10c3", ownerId: "m_maryam", version: 1,
+      },
+      {
+        id: "q_sabz", number: "AVN-1405-1007", customerId: "cus_sabz", opportunityId: "opp_sabz", status: "SENT",
+        items: [{ id: "qi_sabz", serviceId: "svc_funnel", title: "طراحی قیف و فرایند", qty: 1, unitPrice: 140_000_000, unit: "پروژه" }],
+        discountPercent: 0, taxPercent: 10, terms: TERMS, notes: "تحویل نقشه فرایند تا سه هفته.",
+        validUntil: day(6, 18), createdAt: day(-1), sentAt: day(-1, 16),
+        token: "b71c0aa98e334d0c88f012ab", ownerId: "m_reza", version: 1,
+      },
+      {
+        id: "q_vista", number: "AVN-1405-1008", customerId: "cus_vista", opportunityId: "opp_vista", status: "PENDING_APPROVAL",
+        items: [{ id: "qi_vista", serviceId: "svc_cx", title: "ممیزی تجربه مشتری", qty: 1, unitPrice: 95_000_000, unit: "پروژه" }],
+        discountPercent: 18, taxPercent: 10, terms: TERMS, notes: "درخواست تخفیف به‌خاطر معرفی دو مشتری دیگر. سقف کارشناس ۱۰ درصد است.",
+        validUntil: day(10, 18), createdAt: day(0, 9),
+        token: "c33d18e04aab4f90b7712cde", ownerId: "m_maryam", version: 1,
+      },
+      {
+        id: "q_maharat", number: "AVN-1405-1002", customerId: "cus_maharat", opportunityId: "opp_maharat", status: "ACCEPTED",
+        items: [{ id: "qi_mah", title: "بسته عارضه‌یابی و کارگاه", qty: 1, unitPrice: 180_000_000, unit: "بسته" }],
+        discountPercent: 0, taxPercent: 0, terms: TERMS, notes: "مبلغ توافق‌شده بدون ردیف مالیات جدا.",
+        validUntil: day(-10), createdAt: day(-28), sentAt: day(-25), viewedAt: day(-24), respondedAt: day(-20),
+        responseNote: "می‌پذیریم. شروع از هفته بعد.", token: "d90aa12bb6714e08c33490af", ownerId: "m_maryam", version: 1,
+      },
+      {
+        id: "q_noor", number: "AVN-1405-1003", customerId: "cus_noor", opportunityId: "opp_noor", status: "REJECTED",
+        items: [{ id: "qi_noor", serviceId: "svc_funnel", title: "طراحی قیف و فرایند", qty: 1, unitPrice: 120_000_000, unit: "پروژه" }],
+        discountPercent: 0, taxPercent: 10, terms: TERMS, notes: "",
+        validUntil: day(-5), createdAt: day(-22), sentAt: day(-21), viewedAt: day(-18), respondedAt: day(-15),
+        responseNote: "بودجه این فصل کافی نیست.", token: "e12ff098ccab41d79a6601be", ownerId: "m_maryam", version: 1,
+      },
+      {
+        id: "q_rose", number: "AVN-1405-1005", customerId: "cus_rose", opportunityId: "opp_rose", status: "SENT",
+        items: [{ id: "qi_rose", serviceId: "svc_workshop", title: "کارگاه تیم فروش", qty: 1, unitPrice: 45_000_000, unit: "جلسه" }],
+        discountPercent: 0, taxPercent: 10, terms: TERMS, notes: "این نسخه دیگر اعتبار زمانی ندارد.",
+        validUntil: day(-2, 18), createdAt: day(-12), sentAt: day(-11),
+        token: "f44ab901778c4d22a109ee30", ownerId: "m_maryam", version: 1,
+      },
+    ],
+    quoteEvents: [
+      { id: "qe1", quoteId: "q_aria", type: "sent", at: day(-3, 11), note: "لینک برای مدیرعامل ارسال شد" },
+      { id: "qe2", quoteId: "q_aria", type: "viewed", at: day(-1, 15) },
+      { id: "qe3", quoteId: "q_sabz", type: "sent", at: day(-1, 16) },
+      { id: "qe4", quoteId: "q_vista", type: "approval", at: day(0, 9), note: "تخفیف ۱۸٪ بالاتر از سقف کارشناس" },
+      { id: "qe5", quoteId: "q_maharat", type: "accepted", at: day(-20), note: "می‌پذیریم. شروع از هفته بعد." },
+      { id: "qe6", quoteId: "q_noor", type: "rejected", at: day(-15), note: "بودجه این فصل کافی نیست." },
+      { id: "qe7", quoteId: "q_rose", type: "sent", at: day(-11) },
+    ],
+    tasks: [
+      { id: "t_aria", title: "پیگیری پیشنهاد آریاطب", notes: "پیشنهاد را دیده‌اند. بپرسید ابهام دامنه دارند یا زمان شروع.", customerId: "cus_aria", opportunityId: "opp_aria", quoteId: "q_aria", creatorId: "m_sara", assigneeId: "m_maryam", dueAt: day(0, 11), priority: "high", status: "OPEN", source: "automation", idempotencyKey: "quote.followup:q_aria", createdAt: day(-3, 11) },
+      { id: "t_vista", title: "بررسی تخفیف ویستا", notes: "۱۸ درصد در برابر سقف ۱۰ درصد کارشناس. تأیید یا برگشت.", customerId: "cus_vista", opportunityId: "opp_vista", quoteId: "q_vista", creatorId: "m_maryam", assigneeId: "m_reza", dueAt: day(0, 15), priority: "high", status: "OPEN", source: "system", createdAt: day(0, 9) },
+      { id: "t_rose_task", title: "جلسه نیازسنجی کلینیک رُز", notes: "پیشنهاد قبلی منقضی شده. دامنه را از نو ببندید.", customerId: "cus_rose", opportunityId: "opp_rose", creatorId: "m_maryam", assigneeId: "m_maryam", dueAt: day(0, 16), priority: "normal", status: "IN_PROGRESS", source: "manual", createdAt: day(-2) },
+      { id: "t_kimia", title: "تماس مجدد با کیمیا", notes: "فرصت دوازده روز در نیازسنجی مانده است.", customerId: "cus_kimia", opportunityId: "opp_kimia", creatorId: "m_reza", assigneeId: "m_reza", dueAt: day(-3, 10), priority: "high", status: "OPEN", source: "manual", createdAt: day(-5) },
+      { id: "t_sabz", title: "پیگیری پیشنهاد سبزینه", notes: "اگر تا فردا دیده نشد، پیام کوتاه بفرستید.", customerId: "cus_sabz", opportunityId: "opp_sabz", quoteId: "q_sabz", creatorId: "m_sara", assigneeId: "m_reza", dueAt: day(1, 11), priority: "normal", status: "OPEN", source: "automation", idempotencyKey: "quote.followup:q_sabz", createdAt: day(-1, 16) },
+      { id: "t_sepehr", title: "تماس اولیه سپهر", notes: "سرنخ نمایشگاه. نیاز و تصمیم‌گیرنده را ثبت کنید.", customerId: "cus_sepehr", opportunityId: "opp_sepehr", creatorId: "m_reza", assigneeId: "m_reza", dueAt: day(2, 10), priority: "normal", status: "OPEN", source: "manual", createdAt: day(-1) },
+      { id: "t_novin", title: "تنظیم پیشنهاد پارس‌نوین", notes: "بعد از مذاکره، نسخه مکتوب لازم است.", customerId: "cus_novin", opportunityId: "opp_novin", creatorId: "m_maryam", assigneeId: "m_maryam", dueAt: day(3, 10), priority: "high", status: "OPEN", source: "manual", createdAt: day(-2) },
+      { id: "t_done", title: "جمع‌بندی تحویل مهارت‌کده", notes: "", customerId: "cus_maharat", opportunityId: "opp_maharat", creatorId: "m_maryam", assigneeId: "m_maryam", dueAt: day(-6), priority: "normal", status: "COMPLETED", result: "کارگاه برگزار شد و گزارش تحویل داده شد.", completedAt: day(-6, 17), source: "manual", createdAt: day(-12) },
+    ],
+    activities: [
+      { id: "a1", kind: "system", customerId: "cus_vista", quoteId: "q_vista", authorId: "m_maryam", title: "پیشنهاد برای تأیید تخفیف ارسال شد", body: "۱۸ درصد، بالاتر از سقف کارشناس.", at: day(0, 9) },
+      { id: "a2", kind: "system", customerId: "cus_aria", quoteId: "q_aria", authorId: "m_maryam", title: "مشتری پیشنهاد را دید", at: day(-1, 15) },
+      { id: "a3", kind: "system", customerId: "cus_sabz", quoteId: "q_sabz", authorId: "m_reza", title: "پیشنهاد ارسال شد", at: day(-1, 16) },
+      { id: "a4", kind: "note", customerId: "cus_kimia", opportunityId: "opp_kimia", authorId: "m_reza", title: "یادداشت داخلی", body: "بهرام گفت بودجه فروش هفته آینده در هیئت مطرح می‌شود. زودتر از آن تماس نگیریم مگر خودش زنگ بزند.", at: day(-12, 13) },
+      { id: "a5", kind: "meeting", customerId: "cus_novin", opportunityId: "opp_novin", authorId: "m_maryam", title: "جلسه مذاکره", body: "روی دامنه سه شرکت تابعه توافق نسبی شد. مبلغ هنوز نهایی نیست.", at: day(-2, 15) },
+      { id: "a6", kind: "system", customerId: "cus_maharat", opportunityId: "opp_maharat", authorId: "m_maryam", title: "فروش موفق ثبت شد", body: "مبلغ نهایی ۱۸۰ میلیون تومان. وضعیت مشتری به فعال تغییر کرد.", at: day(-20) },
+      { id: "a7", kind: "system", customerId: "cus_noor", opportunityId: "opp_noor", authorId: "m_maryam", title: "فروش ناموفق", body: "دلیل: قیمت. رقیب: مشاور داخلی.", at: day(-15) },
+      { id: "a8", kind: "call", customerId: "cus_rose", authorId: "m_maryam", title: "تماس ورودی", body: "منشی کلینیک وقت نیازسنجی این هفته را خواست.", at: day(-4, 12) },
+    ],
+    automations: [
+      { id: "auto_follow", name: "پیگیری پس از ارسال پیشنهاد", description: "دو روز بعد از ارسال، اگر پیشنهاد هنوز پذیرفته یا رد نشده باشد، یک وظیفه تماس برای مسئول فرصت ساخته می‌شود.", enabled: true, trigger: "quote.sent", delayDays: 2 },
+      { id: "auto_stale", name: "فرصت راکد", description: "اگر فرصت باز بیش از هفت روز در یک مرحله بماند، وظیفه تماس ساخته می‌شود. هر مرحله فقط یک‌بار.", enabled: true, trigger: "opportunity.stale", delayDays: 7 },
+    ],
+    automationRuns: [
+      { id: "ar1", automationId: "auto_follow", at: day(-3, 11), ok: true, summary: "وظیفه پیگیری آریاطب ساخته شد", idempotencyKey: "quote.followup:q_aria" },
+      { id: "ar2", automationId: "auto_follow", at: day(-1, 16), ok: true, summary: "وظیفه پیگیری سبزینه ساخته شد", idempotencyKey: "quote.followup:q_sabz" },
+    ],
+    notices: [
+      { id: "n1", at: day(-1, 15), title: "آریاطب پیشنهاد را دید", body: "هنوز پاسخی ثبت نشده است.", href: "/quotes/q_aria", read: false },
+      { id: "n2", at: day(0, 9), title: "تخفیف ویستا منتظر تأیید است", body: "۱۸ درصد، مسئول: مریم احمدی.", href: "/quotes/q_vista", read: false },
+      { id: "n3", at: day(-20), title: "مهارت‌کده پذیرفت", body: "فروش موفق ثبت شده است.", href: "/customers/cus_maharat", read: true },
+    ],
+    invitations: [
+      { id: "inv1", name: "امید شفیعی", email: "omid@example.com", role: "sales", status: "pending", createdAt: day(-2) },
+    ],
+    quoteSeq: 1009,
+    aiUses: 0,
+  };
+}

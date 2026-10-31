@@ -1,0 +1,78 @@
+@import "@fontsource/vazirmatn/400.css";
+@import "@fontsource/vazirmatn/500.css";
+@import "@fontsource/vazirmatn/600.css";
+@import "@fontsource/vazirmatn/700.css";
+@import "@fontsource/vazirmatn/800.css";
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #141711;
+  --color-surface: #1c2118;
+  --color-raised: #262d21;
+  --color-line: #343d2e;
+  --color-fg: #f3ecdc;
+  --color-muted: #a89f8c;
+  --color-faint: #7a7366;
+  --color-primary: #e2a322;
+  --color-primary-ink: #1a1406;
+  --color-good: #8faf82;
+  --color-bad: #d4735a;
+  --color-paper: #f3ecdc;
+  --color-paper-ink: #1c1914;
+  --font-sans: "Vazirmatn", tahoma, sans-serif;
+  --radius-card: 1rem;
+}
+
+@layer base {
+  html {
+    direction: rtl;
+    color-scheme: dark;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--color-bg);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    line-height: 1.55;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--color-primary) 35%, transparent);
+    color: var(--color-fg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+@media print {
+  body {
+    background: white;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .quote-paper {
+    box-shadow: none !important;
+  }
+}
